@@ -13,7 +13,7 @@
             </div>
 
             <div class="send-wrap ">
-                <input class="form-control send-message" id="textField" placeholder="Write a reply..." />
+                <input class="form-control send-message" id="text-field" placeholder="Write a reply..." />
                 <br />
                 <button type="button" class="btn" id="send">Send</button>
             </div>
@@ -46,19 +46,20 @@
         var message = $("<div>", { class: "col-lg-10" }).text(s + ": " + d);
         wrap.append(div.append(time).append(user).append(message));
         return wrap;
+
     }
 
     btnStart.addEventListener("click", function (e) {
         e.preventDefault();
-        var input = document.getElementById("textField").value;
-        var message = (input != "") ? input : "Empty string...";
+        var input = $("#text-field").val();
+        var message = (input !== "" && input != undefined) ? input : "Empty string...";
 
         // Create message to be appended into chat
         $("#chat").append(cmsg("User", message));
 
         // Send message to server through socket
         socket.send(message);
-        document.getElementById("textField").val('');
+        $("#text-field").val('');
 
         //    socket.onclose = function (e) {
         //        console.log("socket closed", e);
